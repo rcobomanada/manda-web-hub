@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M&A Deal Hub | Intelligence & Transaction Terminal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navegación Superior -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <span class="brand-icon">🏛️</span>
+        <span class="brand-title">M&A Deal Hub</span>
+        <span class="badge-terminal">Terminal Demo</span>
+      </div>
+      <nav class="nav-links">
+        <button class="nav-btn active" onclick="switchView('deals-view')">Transacciones</button>
+        <button class="nav-btn" onclick="switchView('analytics-view')">Analítica</button>
+        <button class="nav-btn" onclick="switchView('about-view')">Metodología</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Vista 1: Catálogo y Buscador de Deals -->
+    <section id="deals-view" class="view active">
+      <div class="hero">
+        <h1>Discover the deals shaping global business.</h1>
+        <p>Inteligencia institucional y base de datos de fusiones y adquisiciones globales.</p>
+        
+        <div class="search-box">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Buscar por comprador o empresa adquirida (ej. Microsoft, Activision)..."
+            oninput="filterDeals()"
+          >
+          <select id="statusFilter" onchange="filterDeals()">
+            <option value="All">Todos los estados</option>
+            <option value="Completed">Completed</option>
+            <option value="Pending">Pending</option>
+            <option value="Terminated">Terminated</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="deals-table">
+          <thead>
+            <tr>
+              <th>Comprador (Acquirer)</th>
+              <th>Objetivo (Target)</th>
+              <th>Sector</th>
+              <th>Valor (USD)</th>
+              <th>Estado</th>
+              <th>Fecha Anuncio</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="dealsTableBody">
+            <!-- Rellenado con JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Vista 2: Analítica de Mercado -->
+    <section id="analytics-view" class="view">
+      <div class="section-header">
+        <h2>Dataset Market Intelligence</h2>
+        <p>Métricas agregadas basadas exclusivamente en el conjunto de datos verificado disponible.</p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-title">Volumen Total Revelado</span>
+          <div class="kpi-value" id="totalVolume">$0B</div>
+          <span class="kpi-sub">Excluye operaciones privadas sin valor publicado</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-title">Operaciones Registradas</span>
+          <div class="kpi-value" id="totalDealsCount">0</div>
+          <span class="kpi-sub">Transacciones auditadas en catálogo</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-title">Tasa de Cierre Efectivo</span>
+          <div class="kpi-value highlight" id="completionRate">0%</div>
+          <span class="kpi-sub">Operaciones con cierre regulatorio completado</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vista 3: Metodología e Información -->
+    <section id="about-view" class="view">
+      <div class="section-header">
+        <h2>Metodología y Verificación</h2>
+        <p>Criterios de inclusión y directrices de integridad de la base de datos.</p>
+      </div>
+
+      <div class="prose-card">
+        <h3>Criterios de Admisibilidad</h3>
+        <p>Se catalogan transacciones formalizadas mediante acuerdos definitivos de compraventa corporativa, tomas de participación mayoritaria o adquisiciones de divisiones estratégicas relevantes.</p>
+
+        <h3>Tratamiento de Valores No Divulgados</h3>
+        <p>Las transacciones privadas o cuyos términos económicos no fueron revelados a los reguladores permanecen explícitamente etiquetadas como <em>Undisclosed</em>. En ningún caso se les imputa un valor de cero para evitar sesgos en el cálculo de medias y volúmenes.</p>
+
+        <div class="disclaimer-box">
+          <strong>Aviso institucional:</strong> Esta aplicación constituye un prototipo analítico y académico. Los datos expuestos no representan asesoramiento financiero ni recomendaciones de inversión.
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal: Detalle de Transacción -->
+    <div id="dealModal" class="modal-overlay" onclick="closeModal(event)">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <span class="deal-type-badge" id="modalType">ACQUISITION</span>
+            <h2 id="modalTitle">Transacción</h2>
+          </div>
+          <button class="close-btn" onclick="hideModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-meta-grid">
+            <div><label>VALOR DE LA OPERACIÓN</label><p id="modalValue" class="deal-val">-</p></div>
+            <div><label>ESTADO</label><p id="modalStatus">-</p></div>
+            <div><label>FECHA DE ANUNCIO</label><p id="modalAnnounced">-</p></div>
+            <div><label>FECHA DE CIERRE</label><p id="modalCompleted">-</p></div>
+          </div>
+          <div class="modal-desc-block">
+            <label>RESUMEN DE LA OPERACIÓN</label>
+            <p id="modalDesc">-</p>
+          </div>
+          <div class="modal-desc-block">
+            <label>RACIONAL ESTRATÉGICO</label>
+            <p id="modalRationale">-</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
